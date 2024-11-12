@@ -15,7 +15,11 @@ navigator.mediaDevices.getUserMedia({
 
     myPeer.on("call", call => {
         call.answer(stream)
-        console.log("a call detected")
+        
+        const video = document.createElement("video");
+        call.on("stream", (userVideoStream) => {
+          addVideoStream(video, userVideoStream);
+        });
     })
 
     // new user detected
