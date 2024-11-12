@@ -2,7 +2,8 @@ const socket = io("/")
 const videoGrid = document.getElementById("video-grid")
 const myPeer = new Peer(undefined, {
     host: "/",
-    port: "3001"
+    port: "3001",
+    path: "/peerserver"
 })
 const myVideo = document.createElement("video");
 myVideo.muted = true;
@@ -30,6 +31,7 @@ navigator.mediaDevices.getUserMedia({
 })
 
 myPeer.on("open", id => {
+    console.log("connected to peer server")
     socket.emit("join-room", ROOM_ID, id);
 })
 
