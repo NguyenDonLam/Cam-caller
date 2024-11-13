@@ -1,7 +1,7 @@
 const socket = io("/")
 const videoGrid = document.getElementById("video-grid")
 const myPeer = new Peer(undefined, {
-  host: "cam-caller-1.onrender.com",
+  host: "peer-server-m6ay.onrender.com",
   path: "/peerserver",
   secure: true,
 });
