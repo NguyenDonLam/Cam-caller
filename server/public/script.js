@@ -16,7 +16,8 @@ navigator.mediaDevices.getUserMedia({
 
     myPeer.on("call", call => {
         call.answer(stream)
-        
+        console.log("new user answered")
+
         const video = document.createElement("video");
         call.on("stream", (userVideoStream) => {
           addVideoStream(video, userVideoStream);
@@ -31,13 +32,13 @@ navigator.mediaDevices.getUserMedia({
 })
 
 myPeer.on("open", id => {
-    console.log("connected to peer server")
+    console.log("connected to peer server, joining room")
     socket.emit("join-room", ROOM_ID, id);
 })
 
 function connectToNewUser(newUserId, stream) {
     const call = myPeer.call(newUserId, stream);
-    console.log("called " + newUserId);
+    console.log("old user calling now");
     const video = document.createElement("video");
     call.on("stream", userVideoStream => {
         console.log("streaming")
