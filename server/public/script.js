@@ -40,6 +40,9 @@ function connectToNewUser(newUserId, stream) {
     const call = myPeer.call(newUserId, stream);
     console.log("calling new user now");
     const video = document.createElement("video");
+    call.on("error", (err) => {
+      console.error("Call failed:", err);
+    });
     call.on("stream", userVideoStream => {
         console.log("streaming new user's")
         addVideoStream(video, userVideoStream);
