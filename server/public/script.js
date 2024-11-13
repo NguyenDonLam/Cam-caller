@@ -52,7 +52,10 @@ function connectToNewUser(newUserId, stream) {
 
 function addVideoStream(video, stream) {
     video.srcObject = stream
-    console.log("stream: "+ stream)
+    console.log("Video tracks:", stream.getVideoTracks());
+    if (stream.getVideoTracks().length === 0) {
+      console.log("No video tracks available in the stream.");
+    }
     video.addEventListener("loadedmetadata", () => {
         video.play()
         console.log("playing video")
