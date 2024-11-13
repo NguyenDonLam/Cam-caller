@@ -56,7 +56,8 @@ function addVideoStream(video, stream) {
     if (stream.getVideoTracks().length === 0) {
       console.log("No video tracks available in the stream.");
     }
-    video.addEventListener("loadedmetadata", () => {
+    video.load()
+    video.addEventListener("canplay", () => {
         video.play()
         console.log("playing video")
     })
