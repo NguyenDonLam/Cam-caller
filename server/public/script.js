@@ -16,11 +16,11 @@ navigator.mediaDevices.getUserMedia({
 
     myPeer.on("call", call => {
         call.answer(stream)
-        console.log("new user answered")
+        console.log("answered old user's call")
 
         const video = document.createElement("video");
         call.on("stream", (userVideoStream) => {
-          console.log("new user streaming old user");
+          console.log("streaming old user's");
           addVideoStream(video, userVideoStream);
         });
     })
@@ -28,7 +28,6 @@ navigator.mediaDevices.getUserMedia({
     // new user detected
     socket.on("user-connected", newUserId => {
         connectToNewUser(newUserId, stream);
-        console.log("finish connecting to new user");
     })
 })
 
@@ -39,10 +38,10 @@ myPeer.on("open", id => {
 
 function connectToNewUser(newUserId, stream) {
     const call = myPeer.call(newUserId, stream);
-    console.log("old user calling now");
+    console.log("calling new user now");
     const video = document.createElement("video");
     call.on("stream", userVideoStream => {
-        console.log("old user streaming new user")
+        console.log("streaming new user's")
         addVideoStream(video, userVideoStream);
     })
     call.on("close", () => {
@@ -56,7 +55,7 @@ function addVideoStream(video, stream) {
     if (stream.getVideoTracks().length === 0) {
       console.log("No video tracks available in the stream.");
     }
-    video.addEventListener("canplay", () => {
+    video.addEventListener("loadedmetadata", () => {
         video.play()
         console.log("playing video")
     })
