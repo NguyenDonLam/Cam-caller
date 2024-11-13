@@ -55,6 +55,7 @@ function addVideoStream(video, stream) {
     console.log("stream: "+ stream)
     video.addEventListener("loadedmetadata", () => {
         video.play()
+        console.log("playing video")
     })
     videoGrid.append(video)
 }
