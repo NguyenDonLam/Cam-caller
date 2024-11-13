@@ -20,6 +20,7 @@ navigator.mediaDevices.getUserMedia({
 
         const video = document.createElement("video");
         call.on("stream", (userVideoStream) => {
+          console.log("new user streaming old user");
           addVideoStream(video, userVideoStream);
         });
     })
@@ -41,7 +42,7 @@ function connectToNewUser(newUserId, stream) {
     console.log("old user calling now");
     const video = document.createElement("video");
     call.on("stream", userVideoStream => {
-        console.log("streaming")
+        console.log("old user streaming new user")
         addVideoStream(video, userVideoStream);
     })
     call.on("close", () => {
@@ -51,6 +52,7 @@ function connectToNewUser(newUserId, stream) {
 
 function addVideoStream(video, stream) {
     video.srcObject = stream
+    console.log("stream: "+ stream)
     video.addEventListener("loadedmetadata", () => {
         video.play()
     })
